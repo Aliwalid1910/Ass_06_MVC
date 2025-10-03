@@ -1,5 +1,6 @@
 ﻿using Demo.DataAccess.Models.EmployeeModule;
 using Demo.DataAccess.Models.Shared;
+using System.Linq.Expressions;
 
 namespace Demo.DataAccess.Repositories.Interfaces
 {
@@ -7,6 +8,8 @@ namespace Demo.DataAccess.Repositories.Interfaces
     {
         int Add(TEntity entity);
         IEnumerable<TEntity> GetAll(bool WithTracking = false);
+        IEnumerable<TEntity> GetAll(Expression<Func<TEntity,bool>> Predicate);
+
         TEntity? GetById(int id);
         int Remove(TEntity entity);
         int Update(TEntity entity);

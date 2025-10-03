@@ -3,6 +3,9 @@ using Demo.DataAccess.Models.DepartmentModule;
 using Demo.DataAccess.Models.Shared;
 using Demo.DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Demo.DataAccess.Repositories.Classes
 {
@@ -38,6 +41,11 @@ namespace Demo.DataAccess.Repositories.Classes
         {
             _dbContext.Set<TEntity>().Remove(entity); // Update Locally
             return _dbContext.SaveChanges();  //num of Rows Deleted
+        }
+
+        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> Predicate)
+        {
+            return _dbContext.Set<TEntity>().Where(Predicate).Where(entity =>entity.IsDeleted == false).ToList();
         }
 
         //public IEnumerable<TEntity> GetIEnumerable()

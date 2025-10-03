@@ -10,7 +10,7 @@ namespace Demo.BusinessLogic.Services.Classes
     {
 
 
-        public IEnumerable<EmployeeDto> GetAllEmployees(bool withTracking = false)
+        public IEnumerable<EmployeeDto> GetAllEmployees(string? EmployeeSearchName, bool withTracking = false)
         {
             //    var employeeDto = _employeeRepository.GetIQueryable().Where(e => e.IsDeleted == false)
             //        .Select(e => new EmployeeDto()
@@ -21,8 +21,16 @@ namespace Demo.BusinessLogic.Services.Classes
             //            Age = e.Age,
             //        });
             //    return employeeDto.ToList();
-
-            var employees = _employeeRepository.GetAll(withTracking);
+            IEnumerable<Employee> employees;
+            if (!String.IsNullOrWhiteSpace(EmployeeSearchName))
+            {
+                employees = _employeeRepository.GetAll(e => e.Name.ToLower().Contains(EmployeeSearchName.ToLower()));
+            }
+            else 
+            {
+                employees = _employeeRepository.GetAll(withTracking);
+            }
+                
         var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
             //var employeesDto = employees.Select(E => new EmployeeDto()
             //{
