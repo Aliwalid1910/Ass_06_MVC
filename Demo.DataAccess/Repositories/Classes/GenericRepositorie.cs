@@ -25,22 +25,22 @@ namespace Demo.DataAccess.Repositories.Classes
         public TEntity? GetById(int id) => _dbContext.Set<TEntity>().Find(id);
 
         //ADD
-        public int Add(TEntity entity)
+        public void Add(TEntity entity)
         {   
             _dbContext.Set<TEntity>().Add(entity); // Add Locally
-            return _dbContext.SaveChanges();  //num of Rows added
+            //return _dbContext.SaveChanges();  //num of Rows added
         }
         //UPDATE
-        public int Update(TEntity entity)
+        public void Update(TEntity entity)
         {
             _dbContext.Set<TEntity>().Update(entity); // Update Locally
-            return _dbContext.SaveChanges();  //num of Rows affected
+            //return _dbContext.SaveChanges();  //num of Rows affected
         }
         //REMOVE
-        public int Remove(TEntity entity)
+        public void Remove(TEntity entity)
         {
             _dbContext.Set<TEntity>().Remove(entity); // Update Locally
-            return _dbContext.SaveChanges();  //num of Rows Deleted
+            //return _dbContext.SaveChanges();  //num of Rows Deleted
         }
 
         public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> Predicate)
