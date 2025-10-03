@@ -2,6 +2,7 @@
 using Demo.BusinessLogic.Factories;
 using Demo.BusinessLogic.Services.Interfaces;
 using Demo.DataAccess.Data.Contexts;
+using Demo.DataAccess.Models.DepartmentModule;
 using Demo.DataAccess.Repositories.Classes;
 using Demo.DataAccess.Repositories.Interfaces;
 
@@ -10,10 +11,19 @@ namespace Demo.BusinessLogic.Services.Classes
     public class DepartmentService(IDepartmentRepositorie _departmentRepositorie) :IDepartmentService
     {
         // GET ALL ==> ID , Name ,Description , DateOfCreation [Date part Only]
-        public IEnumerable<DepartmentDto> GetAllDepartments()
+        public IEnumerable<DepartmentDto> GetAllDepartments(string? DepartmentSearchName)
         {
-            var depatments = _departmentRepositorie.GetAll();
-            return depatments.Select(d => d.ToDepartmentDto());
+            IEnumerable<Department> departments;
+            if (!String.IsNullOrWhiteSpace(DepartmentSearchName))
+            {
+                departments = _departmentRepositorie.GetAll(e => e.Name.ToLower().Contains(DepartmentSearchName.ToLower()));
+
+            }
+            else
+            {
+                departments = _departmentRepositorie.GetAll();
+            } 
+            return departments.Select(d => d.ToDepartmentDto());
 
         }
 

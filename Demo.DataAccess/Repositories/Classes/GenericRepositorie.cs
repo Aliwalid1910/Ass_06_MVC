@@ -48,6 +48,7 @@ namespace Demo.DataAccess.Repositories.Classes
             return _dbContext.Set<TEntity>().Where(Predicate).Where(entity =>entity.IsDeleted == false).ToList();
         }
 
+
         //public IEnumerable<TEntity> GetIEnumerable()
         //{
         //    return _dbContext.Set<TEntity>();

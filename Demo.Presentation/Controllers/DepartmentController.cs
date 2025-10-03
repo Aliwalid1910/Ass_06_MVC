@@ -21,11 +21,11 @@ namespace Demo.Presentation.Controllers
 
         #region Index
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(string? DepartmentSearchName)
         {
             //ViewData["Message"] = "Hello In Departments";
             //ViewBag.Message01 = "Hello From View Bag";
-            var departments = _departmentService.GetAllDepartments();
+            var departments = _departmentService.GetAllDepartments(DepartmentSearchName);
             return View(departments);
         }
         #endregion

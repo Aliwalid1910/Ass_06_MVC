@@ -6,7 +6,7 @@ namespace Demo.BusinessLogic.Services.Interfaces
     {
         int AddDepartment(CreatedepartmentDto departmentdto);
         bool DeleteDepartment(int id);
-        IEnumerable<DepartmentDto> GetAllDepartments();
+        IEnumerable<DepartmentDto> GetAllDepartments(string? DepartmentSearchName);
         DepartmentDetailsDto GetDepartmentById(int id);
         int UpdateDepartment(UpdatedDepartmentDto updatedDepartmentDto);
     }
