@@ -86,18 +86,33 @@ namespace Demo.BusinessLogic.Services.Classes
             return _unitofwork.SaveChanges();
         }
 
-        public bool DeleteEmployee(int id)  
+        //public bool DeleteEmployee(int id)  
+        //{
+        //    var employee = _unitofwork.EmployeeRepositorie.GetById(id);
+        //    if (employee is null) return false;
+        //    else
+        //        employee.IsDeleted = true;
+        //       _unitofwork.EmployeeRepositorie.Update(employee);
+        //    return _unitofwork.SaveChanges() > 0 ? true : false;
+
+        // }
+
+        public bool DeleteEmployee(int id)
         {
             var employee = _unitofwork.EmployeeRepositorie.GetById(id);
             if (employee is null) return false;
-            else
-                employee.IsDeleted = true;
-               _unitofwork.EmployeeRepositorie.Update(employee);
+            if (!string.IsNullOrEmpty(employee.ImageName) && employee.ImageName.ToLower() != "defaultimage.jpg")
+            {
+                var fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "files", "images", employee.ImageName);
+
+                _attachmentService.Delete(fullPath);
+            }
+            employee.IsDeleted = true;
+            _unitofwork.EmployeeRepositorie.Update(employee);
             return _unitofwork.SaveChanges() > 0 ? true : false;
+        }
 
-         }
-
-
+         
         public int UpdateEmployee(UpdatedEmployeeDto employeeDto)
         {
            _unitofwork.EmployeeRepositorie.Update(_mapper.Map<UpdatedEmployeeDto, Employee>(employeeDto));
