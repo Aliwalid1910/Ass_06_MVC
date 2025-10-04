@@ -23,13 +23,13 @@ namespace Demo.BusinessLogic.Services.Attachment_Services
 
             // 3- Get Located Path
             //var folderPath = $"{Directory.GetCurrentDirectory()}\\wwwroot\\files\\{folderName}";
-            Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\files", folderName);
+            var folderpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\files", folderName);
 
             // 4- Make attachment name unique
             var fileName = $"{Guid.NewGuid()}_{file.FileName}";
 
             // 5- Get File Path
-            var filePath = Path.Combine(folderName, fileName);
+            var filePath = Path.Combine(folderpath, fileName);
 
             // 6- Create the Stream
             using FileStream fs = new FileStream(filePath, FileMode.Create);

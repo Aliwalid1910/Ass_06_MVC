@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Demo.BusinessLogic.Services.Classes
 {
-    public class EmployeeService(IUnitOfWork _unitofwork , IMapper _mapper , IAttachmentService  _attachmentServoce) : IEmployeeService
+    public class EmployeeService(IUnitOfWork _unitofwork , IMapper _mapper , IAttachmentService  _attachmentService) : IEmployeeService
     {
 
 
@@ -77,11 +77,16 @@ namespace Demo.BusinessLogic.Services.Classes
         public int CreateEmployee(CreateEmployeeDto employeeDto)
         {
             var employee = _mapper.Map<CreateEmployeeDto, Employee>(employeeDto);
+            if (employeeDto.Image is not null)
+            {
+                string? fileName = _attachmentService.Upload(employeeDto.Image, "images");
+                employee.ImageName = fileName;
+            }
            _unitofwork.EmployeeRepositorie.Add(employee);
             return _unitofwork.SaveChanges();
         }
 
-        public bool DeleteEmployee(int id)
+        public bool DeleteEmployee(int id)  
         {
             var employee = _unitofwork.EmployeeRepositorie.GetById(id);
             if (employee is null) return false;

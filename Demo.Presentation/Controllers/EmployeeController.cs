@@ -47,6 +47,7 @@ namespace Demo.Presentation.Controllers
                         Gender= employeeviewmodel.Gender,
                         PhoneNumber= employeeviewmodel.PhoneNumber,
                         HiringDate= employeeviewmodel.HiringDate,
+                        Image= employeeviewmodel.Image, 
                     
                     });
                     if (result > 0)
