@@ -11,14 +11,15 @@ namespace Demo.BusinessLogic.Mappings
             CreateMap<Employee, EmployeeDto>()
                  .ForMember(dest => dest.Gender, option => option.MapFrom(Src => Src.Gender))
                  .ForMember(dest => dest.EmployeeType, option => option.MapFrom(Src => Src.EmployeeType))
-                 .ForMember(dest => dest.Department, option => option.MapFrom(Src => Src.Department != null ? Src.Department.Name : null ));
+                 .ForMember(dest => dest.Department, option => option.MapFrom(Src => Src.Department != null ? Src.Department.Name : null ))
+                 .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.ImageName));
 
-                  
             CreateMap<Employee, EmployeeDetailsDto>()
                  .ForMember(dest => dest.Gender, option => option.MapFrom(Src => Src.Gender))
                  .ForMember(dest => dest.EmployeeType, option => option.MapFrom(Src => Src.EmployeeType))
-                 .ForMember(dest => dest.HiringDate , option => option.MapFrom(src => DateOnly.FromDateTime(src.HiringDate)))
-                 .ForMember(dest => dest.Department, option => option.MapFrom(Src => Src.Department != null ? Src.Department.Name : null));
+                 .ForMember(dest => dest.HiringDate, option => option.MapFrom(src => DateOnly.FromDateTime(src.HiringDate)))
+                 .ForMember(dest => dest.Department, option => option.MapFrom(Src => Src.Department != null ? Src.Department.Name : null))
+                 .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.ImageName));
 
             CreateMap<CreateEmployeeDto, Employee>()
             .ForMember(dest => dest.HiringDate, option => option.MapFrom(src => src.HiringDate.ToDateTime(TimeOnly.MinValue)));   
