@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Demo.BusinessLogic.DTOS.EmployeeDTOS;
+using Demo.BusinessLogic.Services.Attachment_Services;
 using Demo.BusinessLogic.Services.Interfaces;
 using Demo.DataAccess.Models.EmployeeModule;
 using Demo.DataAccess.Repositories.Interfaces;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Demo.BusinessLogic.Services.Classes
 {
-    public class EmployeeService(IUnitOfWork _unitofwork , IMapper _mapper) : IEmployeeService
+    public class EmployeeService(IUnitOfWork _unitofwork , IMapper _mapper , IAttachmentService  _attachmentServoce) : IEmployeeService
     {
 
 
